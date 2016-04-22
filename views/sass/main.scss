@@ -1,0 +1,18 @@
+@import url(https://fonts.googleapis.com/css?family=Ubuntu:400,500,700|Lora:400,700);
+$body_bgcolor : #3C787E;
+$navbar_bgcolor : #f1c40f;
+
+body {
+	padding-top: 70px;
+	font-family: Lora;
+	background: $body_bgcolor;
+	color : white;
+}
+.navbar {
+	background: $navbar_bgcolor;
+	opacity: .8;
+}
+#navbar-brand {
+	font-family: Ubuntu;
+	font-size: 3em;
+}
