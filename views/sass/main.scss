@@ -1,24 +1,92 @@
 @import url(https://fonts.googleapis.com/css?family=Ubuntu:400,500,700|Lora:400,700);
 $body_bgcolor : #3C787E;
 $navbar_bgcolor : #f1c40f;
+$font-color : #111;
 
 body {
 	padding-top: 70px;
 	font-family: Lora;
 	background: $body_bgcolor;
-	color : black;
+	color : $font-color;
 }
 .navbar {
 	background: $navbar_bgcolor;
 	opacity: .8;
 }
-#navbar-brand {
+#navbar-brand, .title {
 	font-family: Ubuntu;
 	font-size: 3em;
 	color : white;
 	padding: .2em;
 }
+.title {
+	font-family: Ubuntu;
+	font-size: 3em;
+	color : $font-color;
+}
 .panel-title {
 	font-family: Ubuntu;
 	font-size: 1.5em;
+}
+ol.breadcrumb {
+	background: $body_bgcolor;
+	border: none;
+	color: white;
+	a {
+		color: white;
+		text-decoration: underline;
+	}
+}
+.legend {
+	margin-bottom: 1em;
+}
+.graphcolor0 {
+	background-color: #F45B69;
+	height: 2em;
+	margin-bottom: .5em;
+}
+.graphcolor1 {
+	background-color: #BAA5FF;
+	height: 2em;
+	margin-bottom: .5em;
+}
+.graphcolor2 {
+	background-color: #97A14A;
+	height: 2em;
+	margin-bottom: .5em;
+}
+.graphcolor3 {
+	background-color: #B49A67;
+	height: 2em;
+	margin-bottom: .5em;
+}
+.graphcolor4 {
+	background-color: #CEB3AB;
+	height: 2em;
+	margin-bottom: .5em;
+}
+.graphcolor5 {
+	background-color: #C4C6E7;
+	height: 2em;
+	margin-bottom: .5em;
+}
+.graphcolor6 {
+	background-color: #011627;
+	height: 2em;
+	margin-bottom: .5em;
+}
+.graphcolor7 {
+	background-color: #ebebeb;
+	height: 2em;
+	margin-bottom: .5em;
+}
+.graphcolor8 {
+	background-color: #59c3c3;
+	height: 2em;
+	margin-bottom: .5em;
+}
+.graphcolor9 {
+	background-color: #4062BB;
+	height: 2em;
+	margin-bottom: .5em;
 }
