@@ -1,0 +1,27 @@
+{
+  "name": "voting-app",
+  "version": "1.0.0",
+  "description": "FCC Challenge",
+  "main": "app.js",
+  "dependencies": {
+    "express": "^4.13.4",
+    "pug": "^2.0.0-alpha6"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/naprirfan/fcc-voting-app.git"
+  },
+  "keywords": [
+    "nodejs"
+  ],
+  "author": "Muhammad Irfan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/naprirfan/fcc-voting-app/issues"
+  },
+  "homepage": "https://github.com/naprirfan/fcc-voting-app#readme"
+}

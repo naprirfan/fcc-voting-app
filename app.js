@@ -1,9 +1,11 @@
 //setup variables & modules
 var express = require("express");
 var app = express();
+var sass = require("node-sass");
 app.use('/dist', express.static(__dirname + '/dist'));
-
 //define view engine
+
+
 app.set("views", __dirname + "/views");
 app.set("view engine", "pug");
 

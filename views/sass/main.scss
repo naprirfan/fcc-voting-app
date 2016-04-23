@@ -6,7 +6,7 @@ body {
 	padding-top: 70px;
 	font-family: Lora;
 	background: $body_bgcolor;
-	color : white;
+	color : black;
 }
 .navbar {
 	background: $navbar_bgcolor;
@@ -15,4 +15,10 @@ body {
 #navbar-brand {
 	font-family: Ubuntu;
 	font-size: 3em;
+	color : white;
+	padding: .2em;
+}
+.panel-title {
+	font-family: Ubuntu;
+	font-size: 1.5em;
 }
