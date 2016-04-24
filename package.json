@@ -4,8 +4,11 @@
   "description": "FCC Challenge",
   "main": "app.js",
   "dependencies": {
+    "dotenv": "^2.0.0",
+    "envs": "^0.1.6",
     "express": "^4.13.4",
-    "pug": "^2.0.0-alpha6"
+    "pug": "^2.0.0-alpha6",
+    "request": "^2.72.0"
   },
   "devDependencies": {},
   "scripts": {

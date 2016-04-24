@@ -3,7 +3,34 @@ body {
   padding-top: 70px;
   font-family: Lora;
   background: #3C787E;
-  color: #111; }
+  color: #FFF; }
+
+.buttonLogin {
+  font-family: Ubuntu;
+  color: white !important;
+  font-size: 1.7em; }
+
+.buttonVote {
+  height: 2.3em;
+  width: 3.2em;
+  margin-left: .2em;
+  color: white;
+  background-color: #63D471;
+  border: none;
+  border-radius: 2px;
+  box-shadow: 0px 3px 0.2px #2da43c;
+  text-decoration: none; }
+  .buttonVote:active {
+    transform: translateY(1px);
+    box-shadow: 0px 2px 0.1px #2da43c; }
+
+.buttonShare {
+  background-color: #3DA5D9;
+  padding: .5em 1em;
+  border: none;
+  border-radius: 2px;
+  color: white;
+  box-shadow: 0px 3px 0.2px #1d6c93; }
 
 .navbar {
   background: #f1c40f;
@@ -18,18 +45,21 @@ body {
 .title {
   font-family: Ubuntu;
   font-size: 3em;
-  color: #111; }
+  color: #FFF; }
 
 .panel-title {
   font-family: Ubuntu;
   font-size: 1.5em; }
 
+.panel-body {
+  color: #111; }
+
 ol.breadcrumb {
   background: #3C787E;
   border: none;
-  color: white; }
+  color: #f1c40f; }
   ol.breadcrumb a {
-    color: white;
+    color: #f1c40f;
     text-decoration: underline; }
 
 .legend {
