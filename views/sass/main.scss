@@ -15,6 +15,7 @@ body {
 	font-family: Ubuntu;
 	color: white !important;
 	font-size: 1.7em;
+	margin-top: 5px;
 }
 .buttonVote {
 	height: 2.3em;
@@ -31,6 +32,10 @@ body {
 		box-shadow: 0px 2px .1px darken($buttonvote_color, 20%);
 	}
 }
+.voteDropdown {
+	width: 70%;
+	float: left;
+}
 .buttonShare {
 	background-color: $buttonshare_color;
 	padding: .5em 1em;
@@ -43,11 +48,14 @@ body {
 	background: $navbar_bgcolor;
 	opacity: .8;
 }
-#navbar-brand, .title {
+#navbar-brand a {
 	font-family: Ubuntu;
 	font-size: 3em;
 	color : white;
 	padding: .2em;
+	&:hover {
+		text-decoration: none !important;
+	}
 }
 .title {
 	font-family: Ubuntu;
