@@ -30,7 +30,6 @@ app.get("/auth/github_callback", function(req,res){
 		}},
 		function (err, response, body) {
 			if (err) res.end(err);
-			
 			//put the token in cookie
 			res.cookie("token", req.query.code, {maxAge : 3600000});
 			res.redirect("/");
@@ -40,6 +39,9 @@ app.get("/auth/github_callback", function(req,res){
 app.get("/signout", function(req,res){
 	res.clearCookie("token");
 	res.redirect("/");
+});
+app.post("/vote", function(req,res) {
+	res.end(JSON.stringify({message : "success"}));
 });
 app.get("*", function(req,res){
 	res.end("404!");

@@ -11,6 +11,9 @@ body {
 	background: $body_bgcolor;
 	color : $font-color;
 }
+.loading {
+	float: left;
+}
 .buttonLogin {
 	font-family: Ubuntu;
 	color: white !important;
@@ -80,6 +83,9 @@ ol.breadcrumb {
 }
 .legend {
 	margin-bottom: 1em;
+}
+.form-message {
+	color : #F45B69;
 }
 .graphcolor0 {
 	background-color: #F45B69;

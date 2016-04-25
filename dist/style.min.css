@@ -1,2 +1,131 @@
-@import url(https://fonts.googleapis.com/css?family=Ubuntu:400,500,700|Lora:400,700);body{padding-top:70px;font-family:Lora;background:#3C787E;color:#FFF}.buttonLogin{font-family:Ubuntu;color:white !important;font-size:1.7em;margin-top:5px}.buttonVote{height:2.3em;width:3.2em;margin-left:.2em;color:white;background-color:#63D471;border:none;border-radius:2px;box-shadow:0px 3px 0.2px #2da43c;text-decoration:none}.buttonVote:active{transform:translateY(1px);box-shadow:0px 2px 0.1px #2da43c}.voteDropdown{width:70%;float:left}.buttonShare{background-color:#3DA5D9;padding:.5em 1em;border:none;border-radius:2px;color:white;box-shadow:0px 3px 0.2px #1d6c93}.navbar{background:#f1c40f;opacity:.8}#navbar-brand a{font-family:Ubuntu;font-size:3em;color:white;padding:.2em}#navbar-brand a:hover{text-decoration:none !important}.title{font-family:Ubuntu;font-size:3em;color:#FFF}.panel-title{font-family:Ubuntu;font-size:1.5em}.panel-body{color:#111}ol.breadcrumb{background:#3C787E;border:none;color:#f1c40f}ol.breadcrumb a{color:#f1c40f;text-decoration:underline}.legend{margin-bottom:1em}.graphcolor0{background-color:#F45B69;height:2em;margin-bottom:.5em}.graphcolor1{background-color:#BAA5FF;height:2em;margin-bottom:.5em}.graphcolor2{background-color:#97A14A;height:2em;margin-bottom:.5em}.graphcolor3{background-color:#B49A67;height:2em;margin-bottom:.5em}.graphcolor4{background-color:#CEB3AB;height:2em;margin-bottom:.5em}.graphcolor5{background-color:#C4C6E7;height:2em;margin-bottom:.5em}.graphcolor6{background-color:#011627;height:2em;margin-bottom:.5em}.graphcolor7{background-color:#ebebeb;height:2em;margin-bottom:.5em}.graphcolor8{background-color:#59c3c3;height:2em;margin-bottom:.5em}.graphcolor9{background-color:#4062BB;height:2em;margin-bottom:.5em}
+@import url(https://fonts.googleapis.com/css?family=Ubuntu:400,500,700|Lora:400,700);
+body {
+  padding-top: 70px;
+  font-family: Lora;
+  background: #3C787E;
+  color: #FFF; }
+
+.loading {
+  float: left; }
+
+.buttonLogin {
+  font-family: Ubuntu;
+  color: white !important;
+  font-size: 1.7em;
+  margin-top: 5px; }
+
+.buttonVote {
+  height: 2.3em;
+  width: 3.2em;
+  margin-left: .2em;
+  color: white;
+  background-color: #63D471;
+  border: none;
+  border-radius: 2px;
+  box-shadow: 0px 3px 0.2px #2da43c;
+  text-decoration: none; }
+  .buttonVote:active {
+    transform: translateY(1px);
+    box-shadow: 0px 2px 0.1px #2da43c; }
+
+.voteDropdown {
+  width: 70%;
+  float: left; }
+
+.buttonShare {
+  background-color: #3DA5D9;
+  padding: .5em 1em;
+  border: none;
+  border-radius: 2px;
+  color: white;
+  box-shadow: 0px 3px 0.2px #1d6c93; }
+
+.navbar {
+  background: #f1c40f;
+  opacity: .8; }
+
+#navbar-brand a {
+  font-family: Ubuntu;
+  font-size: 3em;
+  color: white;
+  padding: .2em; }
+  #navbar-brand a:hover {
+    text-decoration: none !important; }
+
+.title {
+  font-family: Ubuntu;
+  font-size: 3em;
+  color: #FFF; }
+
+.panel-title {
+  font-family: Ubuntu;
+  font-size: 1.5em; }
+
+.panel-body {
+  color: #111; }
+
+ol.breadcrumb {
+  background: #3C787E;
+  border: none;
+  color: #f1c40f; }
+  ol.breadcrumb a {
+    color: #f1c40f;
+    text-decoration: underline; }
+
+.legend {
+  margin-bottom: 1em; }
+
+.form-message {
+  color: #F45B69; }
+
+.graphcolor0 {
+  background-color: #F45B69;
+  height: 2em;
+  margin-bottom: .5em; }
+
+.graphcolor1 {
+  background-color: #BAA5FF;
+  height: 2em;
+  margin-bottom: .5em; }
+
+.graphcolor2 {
+  background-color: #97A14A;
+  height: 2em;
+  margin-bottom: .5em; }
+
+.graphcolor3 {
+  background-color: #B49A67;
+  height: 2em;
+  margin-bottom: .5em; }
+
+.graphcolor4 {
+  background-color: #CEB3AB;
+  height: 2em;
+  margin-bottom: .5em; }
+
+.graphcolor5 {
+  background-color: #C4C6E7;
+  height: 2em;
+  margin-bottom: .5em; }
+
+.graphcolor6 {
+  background-color: #011627;
+  height: 2em;
+  margin-bottom: .5em; }
+
+.graphcolor7 {
+  background-color: #ebebeb;
+  height: 2em;
+  margin-bottom: .5em; }
+
+.graphcolor8 {
+  background-color: #59c3c3;
+  height: 2em;
+  margin-bottom: .5em; }
+
+.graphcolor9 {
+  background-color: #4062BB;
+  height: 2em;
+  margin-bottom: .5em; }
+
 /*# sourceMappingURL=style.min.css.map */
