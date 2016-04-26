@@ -4,6 +4,7 @@
   "description": "FCC Challenge",
   "main": "app.js",
   "dependencies": {
+    "body-parser": "^1.15.0",
     "dotenv": "^2.0.0",
     "envs": "^0.1.6",
     "express": "^4.13.4",

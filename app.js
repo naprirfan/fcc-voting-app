@@ -5,7 +5,10 @@ var express = require("express");
 var app = express();
 var sass = require("node-sass");
 var request = require("request");
+var bodyParser = require("body-parser");
 app.use('/dist', express.static(__dirname + '/dist'));
+app.use(bodyParser.json()); // support json encoded bodies
+app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
 //define view engine
 app.set("views", __dirname + "/views");
@@ -41,6 +44,7 @@ app.get("/signout", function(req,res){
 	res.redirect("/");
 });
 app.post("/vote", function(req,res) {
+	console.log(req.body);
 	res.end(JSON.stringify({message : "success"}));
 });
 app.get("*", function(req,res){
