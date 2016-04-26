@@ -47,6 +47,9 @@ app.post("/vote", function(req,res) {
 	console.log(req.body);
 	res.end(JSON.stringify({message : "success"}));
 });
+app.get("/createpoll", function(req,res){
+	res.end(JSON.stringify({message : "success"}));
+});
 app.get("*", function(req,res){
 	res.end("404!");
 });

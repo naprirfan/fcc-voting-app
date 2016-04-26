@@ -8,11 +8,17 @@ body {
 .loading {
   float: left; }
 
+.right-menu {
+  margin-top: 1em; }
+
 .buttonLogin {
   font-family: Ubuntu;
   color: white !important;
-  font-size: 1.7em;
-  margin-top: 5px; }
+  font-size: 1.7em; }
+
+.createPollButton {
+  margin-left: 2em;
+  color: white; }
 
 .buttonVote {
   height: 2.3em;
