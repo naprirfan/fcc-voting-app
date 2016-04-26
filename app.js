@@ -47,6 +47,8 @@ app.post("/vote", function(req,res) {
 	console.log(req.body);
 	res.end(JSON.stringify({message : "success"}));
 });
+
+//todo : implement authorized only
 app.get("/createpoll", function(req,res){
 	res.end(JSON.stringify({message : "success"}));
 });
