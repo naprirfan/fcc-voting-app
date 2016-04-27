@@ -70,9 +70,15 @@ app.post("/vote", function(req,res) {
 
 //todo : implement authorized only
 app.post("/createpoll", function(req,res){
-	if (!req.cookies.token) {
+	console.log("post coming");
+
+
+	if (req.cookies.token === undefined) {
+		console.log('not authorized');
 		res.end(403, "not authorized");
+		return;
 	}
+
 	var optArr = req.body.poll_options.split(",");
 	var result = {};
 	for (var i = 0; i < optArr.length; i++) {
@@ -96,9 +102,14 @@ app.post("/createpoll", function(req,res){
 		collection.insert(
 			entry,
 			function(err, docs) {
-				if (err) throw err;
+				
+				if (err) {
+					res.end(err);
+				}
+				else {
+					res.end(JSON.stringify({message: "success"}));
+				}
 				db.close();
-				res.end(JSON.stringify({message: "success"}));
 			}
 		);
 	});
