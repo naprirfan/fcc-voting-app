@@ -7,7 +7,8 @@ var sass = require("node-sass");
 var request = require("request");
 var bodyParser = require("body-parser");
 var cookieParser = require('cookie-parser');
-var mongodb = require("mongodb").MongoClient;
+var mongodb = require("mongodb");
+var mongodbclient = mongodb.MongoClient;
 var db_url = "mongodb://"+ process.env.MONGODB_USER +":"+ process.env.MONGODB_PASSWORD +"@ds013951.mlab.com:13951/fcc-challenge";
 
 app.use('/dist', express.static(__dirname + '/dist'));
@@ -45,7 +46,7 @@ app.get("/auth/github_callback", function(req,res){
 	)
 });
 app.get("/findAllPoll", function(req,res){
-	mongodb.connect(db_url, function(err,db){
+	mongodbclient.connect(db_url, function(err,db){
 		if (err) throw err;
 		
 		var collection = db.collection("voting_app");
@@ -68,13 +69,37 @@ app.post("/vote", function(req,res) {
 	res.end(JSON.stringify({message : "success"}));
 });
 
-//todo : implement authorized only
-app.post("/createpoll", function(req,res){
-	console.log("post coming");
-
-
+app.delete("/deletepoll", function(req,res){
 	if (req.cookies.token === undefined) {
-		console.log('not authorized');
+		res.end(403, "not authorized");
+		return;
+	}
+	console.log(req.body.id);
+	mongodbclient.connect(db_url, function(err,db){
+		if (err) throw err;
+		
+		var collection = db.collection("voting_app");
+		collection.remove(
+			{
+				//author : req.cookies.token,
+				_id : new mongodb.ObjectID(req.body.id)
+			},
+			function(err, docs) {
+				
+				if (err) {
+					res.end(err);
+				}
+				else {
+					res.end(JSON.stringify({message: "success"}));
+				}
+				db.close();
+			}
+		);
+	});
+});
+
+app.post("/createpoll", function(req,res){
+	if (req.cookies.token === undefined) {
 		res.end(403, "not authorized");
 		return;
 	}
@@ -95,7 +120,7 @@ app.post("/createpoll", function(req,res){
 		username_voters : []
 	};
 
-	mongodb.connect(db_url, function(err,db){
+	mongodbclient.connect(db_url, function(err,db){
 		if (err) throw err;
 		
 		var collection = db.collection("voting_app");

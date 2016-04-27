@@ -5,6 +5,10 @@ body {
   background: #3C787E;
   color: #FFF; }
 
+.deletePollLink {
+  color: white;
+  text-decoration: underline; }
+
 .loading {
   float: left; }
 

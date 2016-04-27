@@ -11,6 +11,10 @@ body {
 	background: $body_bgcolor;
 	color : $font-color;
 }
+.deletePollLink {
+	color: white;
+	text-decoration: underline;
+}
 .loading {
 	float: left;
 }
