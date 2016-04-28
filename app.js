@@ -1,3 +1,9 @@
+/*
+TODO :
+1. Implement vote
+2. Make all UI's path more seamless if possible
+*/
+
 //setup variables & modules
 const ACCESS_TOKEN_REQUEST_URL = "https://github.com/login/oauth/access_token";
 require('dotenv').config();
@@ -40,7 +46,7 @@ app.get("/auth/github_callback", function(req,res){
 		function (err, response, body) {
 			if (err) res.end(err);
 			//put the token in cookie
-			res.cookie("token", req.query.code, {maxAge : 360000000});
+			res.cookie("token", body.access_token, {maxAge : 360000000});
 			res.redirect("/");
 		}
 	)
@@ -54,34 +60,71 @@ app.get("/findAllPoll", function(req,res){
 			{}
 		).toArray(function(err, docs){
 			if (err) throw err;
+			res.cookie("ip_address", req.ip, {maxAge : 360000000});
 			res.end(JSON.stringify(docs));
 			db.close();
 		});	
 	});
-	
-	
 });
 app.get("/signout", function(req,res){
 	res.clearCookie("token");
 	res.redirect("/");
 });
-app.post("/vote", function(req,res) {
-	res.end(JSON.stringify({message : "success"}));
+app.put("/vote", function(req,res) {
+	var pushUpdate;
+	//if user is authed
+	if (req.cookies.token !== undefined) {
+		pushUpdate = {
+			username_voters : req.cookies.token
+		};
+	}
+	//if user is NOT authed
+	else {
+		pushUpdate = {
+			ip_voters : req.ip
+		}
+	}
+
+	mongodbclient.connect(db_url, function(err,db){
+		if (err) throw err;
+		
+		var votekey = "result." + req.body.vote;
+		var incrementUpdate = {};
+		incrementUpdate[votekey] = 1;
+
+		var collection = db.collection("voting_app");
+		collection.findAndModify(
+		    { _id: new mongodb.ObjectID(req.body._id) },     // query
+		    [],               // represents a sort order if multiple matches
+		    { 
+		    	$push: pushUpdate,
+		    	$inc : incrementUpdate
+		    },   // update statement
+		    { new: false },    // options - new to return the modified document
+		    function(err,doc) {
+		    	res.end(JSON.stringify(doc));
+		    }
+		);
+	});
+});
+
+app.put("/vote/add_option", function(req,res){
+
 });
 
 app.delete("/deletepoll", function(req,res){
+	
 	if (req.cookies.token === undefined) {
 		res.end(403, "not authorized");
 		return;
 	}
-	console.log(req.body.id);
+	
 	mongodbclient.connect(db_url, function(err,db){
 		if (err) throw err;
 		
 		var collection = db.collection("voting_app");
 		collection.remove(
 			{
-				//author : req.cookies.token,
 				_id : new mongodb.ObjectID(req.body.id)
 			},
 			function(err, docs) {
@@ -99,6 +142,7 @@ app.delete("/deletepoll", function(req,res){
 });
 
 app.post("/createpoll", function(req,res){
+	
 	if (req.cookies.token === undefined) {
 		res.end(403, "not authorized");
 		return;
@@ -127,7 +171,6 @@ app.post("/createpoll", function(req,res){
 		collection.insert(
 			entry,
 			function(err, docs) {
-				
 				if (err) {
 					res.end(err);
 				}
