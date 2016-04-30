@@ -1,7 +1,7 @@
 var webpack = require('webpack');
 
 module.exports = {
-  entry: './views/js/main.jsx',
+  entry: './src/js/main.jsx',
   output: {
     // Output the bundled file.
     path: './dist',
@@ -28,5 +28,10 @@ module.exports = {
     // Include '.js', '.jsx' to resolve files by these implicit extensions
     // (e.g. require('underscore')).
     extensions: ['', '.js', '.jsx']
-  }
+  },
+  plugins: [
+    new webpack.optimize.UglifyJsPlugin({
+      compress: { warnings: false }
+    })
+  ]
 };

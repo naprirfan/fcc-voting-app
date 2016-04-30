@@ -4,12 +4,39 @@ var VoteForm = require('./_VoteForm');
 
 var PollDetail = React.createClass({
 	mixins : [Helper],
+	_onFormSubmit : function(vote){
+		console.log("data object = " + vote);
+		var dataset = this.props.dataset;
+		dataset.result[vote] += 1;
+
+		$.ajax({
+			url : "/vote",
+			data : {
+				vote : vote,
+				_id : dataset._id
+			},
+			method :"PUT",
+			success : function(data) {
+				//todo : change dataset record in parent
+			},
+			error : function(jqxhr, textstatus) {
+				self.setState({pagestate : "error", message : textstatus});
+			}
+		});
+
+		this.setState({dataset : dataset});
+	},
+	getInitialState : function(){
+		return {
+			dataset : this.props.dataset
+		}
+	},
 	_onDeleteLinkClicked : function(){
 		PubSub.publish("delete_button_clicked", this.props.index);
 	},
 	render : function() {
 		//initiate vars
-		var data = this.props.dataset.result;
+		var data = this.state.dataset.result;
 		var sum = 0;
 
 		//get number of all votes
@@ -64,6 +91,7 @@ var PollDetail = React.createClass({
 			);
 		}
 
+		var boundFormSubmit = this._onFormSubmit.bind(this);
 		return (
 			<div>
 				<ol className="breadcrumb">
@@ -75,7 +103,7 @@ var PollDetail = React.createClass({
 				<h1 className="title">{this.props.dataset.title}</h1>
 				<div className="row">
 					<div className="col-md-4">
-						<VoteForm index={this.props.index} options={options} dataset={this.props.dataset} />
+						<VoteForm onFormSubmit={boundFormSubmit} index={this.props.index} options={options} dataset={this.props.dataset} />
 						<br />
 						<a target="_blank" href={twitterLink} className="buttonShare"><i className="fa fa-twitter"></i> Tweet this to your followers</a>
 						<br /><br />

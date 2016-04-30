@@ -23,7 +23,7 @@ app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 app.use(cookieParser());
 
 //define view engine
-app.set("views", __dirname + "/views");
+app.set("views", __dirname + "/src/jade");
 app.set("view engine", "pug");
 
 /*
