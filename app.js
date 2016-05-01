@@ -1,7 +1,10 @@
 /*
 TODO :
-1. Implement vote
-2. Make all UI's path more seamless if possible
+
+1. Make all UI's path more seamless
+2. create localstorage for dataset
+3. refactor : move route in mixin, refactor names across all jsx
+4. Delete pubsub, implement things react-y ways
 */
 
 //setup variables & modules

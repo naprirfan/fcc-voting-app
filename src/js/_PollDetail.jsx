@@ -1,11 +1,44 @@
 var React = require('react');
-var Helper = require('./_mixins');
+var Helper = require("./_mixins_helper");
 var VoteForm = require('./_VoteForm');
 
 var PollDetail = React.createClass({
 	mixins : [Helper],
+	componentWillMount: function() {
+		this.setState({canvote : this._canUserVote()});
+	},
+	_canUserVote : function(){
+		//determine wether user can vote / not
+		var canvote = false;
+		if (window.isUserAuthed) {
+			console.log('user authed');
+			var username_voters = this.props.dataset.username_voters;
+			console.log('username voters = ' + username_voters);
+			var token = this._getCookie("token");
+			console.log('token = ' + token);
+			//if voters not exist, allow to vote
+			if (username_voters.indexOf(token) < 0) {
+				console.log("yes, i can vote");
+				canvote = true;
+			}	
+		}
+		else {
+			console.log('user not authed')
+			var ip_voters = this.props.dataset.ip_voters;
+			console.log("ip_voters = " + ip_voters);
+			var ip_address = this._getCookie("ip_address");
+			console.log("ip_address = " + ip_address);
+			//if voters not exist, allow to vote
+			if (ip_voters.indexOf(ip_address) < 0) {
+				console.log("yes, i can vote");
+				canvote = true;
+			}	
+		}
+		console.log("CAN USER VOTE = " + canvote);
+		return canvote;
+	},
 	_onFormSubmit : function(vote){
-		console.log("data object = " + vote);
+		var self = this;
 		var dataset = this.props.dataset;
 		dataset.result[vote] += 1;
 
@@ -18,17 +51,20 @@ var PollDetail = React.createClass({
 			method :"PUT",
 			success : function(data) {
 				//todo : change dataset record in parent
-			},
-			error : function(jqxhr, textstatus) {
-				self.setState({pagestate : "error", message : textstatus});
+				var result = {
+					index : self.props.index,
+					data : data
+				}
+				self.props.onDatasetChange(result);
 			}
 		});
 
-		this.setState({dataset : dataset});
+		this.setState({dataset : dataset, canvote : false});
 	},
 	getInitialState : function(){
 		return {
-			dataset : this.props.dataset
+			dataset : this.props.dataset,
+			canvote : false
 		}
 	},
 	_onDeleteLinkClicked : function(){
@@ -92,6 +128,8 @@ var PollDetail = React.createClass({
 		}
 
 		var boundFormSubmit = this._onFormSubmit.bind(this);
+
+		//check if user can vote
 		return (
 			<div>
 				<ol className="breadcrumb">
@@ -103,7 +141,7 @@ var PollDetail = React.createClass({
 				<h1 className="title">{this.props.dataset.title}</h1>
 				<div className="row">
 					<div className="col-md-4">
-						<VoteForm onFormSubmit={boundFormSubmit} index={this.props.index} options={options} dataset={this.props.dataset} />
+						<VoteForm canvote={this.state.canvote} onFormSubmit={boundFormSubmit} index={this.props.index} options={options} dataset={this.props.dataset} />
 						<br />
 						<a target="_blank" href={twitterLink} className="buttonShare"><i className="fa fa-twitter"></i> Tweet this to your followers</a>
 						<br /><br />

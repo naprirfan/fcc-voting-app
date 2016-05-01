@@ -2,18 +2,11 @@ var React = require('react');
 var PollItem = require("./_PollItem");
 var PollDetail = require("./_PollDetail");
 var CreatePollForm = require("./_CreatePollForm");
+var Helper = require("./_mixins_helper");
+var Routes = require("./_mixins_route");
 
 var App = React.createClass({
-	_setRoute : function() {
-		this.route = {
-			'default' : "home",
-			'poll_id' : "detail",
-			'createpoll' : 'createpoll'
-		};
-		this.authorizedOnlyRoutes = [
-			'createpoll'
-		];
-	},
+	mixins : [Helper, Routes],
 	getInitialState : function() {
 		return {
 			dataset : [],
@@ -22,16 +15,21 @@ var App = React.createClass({
 		}
 	},
 	_getPollingList : function(callback, shouldGetFreshdata) {
-		if (this.state.dataset.length > 0 && !shouldGetFreshdata) {
-			callback(this.state.dataset);
+		var dataset = JSON.parse(localStorage.getItem("dataset"));
+		//if there's item in local storage,
+		//and if shouldn't get fresh data,
+		//and if not the very beginning request, 
+		//then use dataset from localStorage
+		if (dataset.length > 0 && !shouldGetFreshdata && this.state.dataset.length > 0) {
+			callback(dataset);
 		}
 		else {
 			var self = this;
-			self.setState({currentPage: "loading"});
 			$.ajax({
 				method: "GET",
 				url : "/findAllPoll",
 				success: function(dataset){
+					localStorage.setItem("dataset", dataset);
 					callback(JSON.parse(dataset));
 				},
 				error: function(jqxhr, textstatus) {
@@ -87,14 +85,14 @@ var App = React.createClass({
 
 		if (currentPage == "home") {
 			this._getPollingList(function(dataset){
-				self.setState({currentPage : currentPage, dataset: dataset});	
+				self.setState({currentPage : "home", dataset: dataset});	
 			});
 		}
 		else if (currentPage == "detail") {
 			this._getPollingList(function(dataset){
 				self.setState({
 					dataset : dataset
-					, currentPage : currentPage
+					, currentPage : "detail"
 					, selectedItem : window.location.hash.split("=")[1]
 				});
 			})
@@ -135,35 +133,10 @@ var App = React.createClass({
 	_onHomeButtonClick : function() {
 		this.setState({currentPage: "home"});
 	},
-	_getCookie : function(name) {
-		var dc = document.cookie;
-	    var prefix = name + "=";
-	    var begin = dc.indexOf("; " + prefix);
-	    if (begin == -1) {
-	        begin = dc.indexOf(prefix);
-	        if (begin != 0) return null;
-	    }
-	    else
-	    {
-	        begin += 2;
-	        var end = document.cookie.indexOf(";", begin);
-	        if (end == -1) {
-	        end = dc.length;
-	        }
-	    }
-	    return unescape(dc.substring(begin + prefix.length, end));
-	},
-	_hasAccess : function() {
-		var currentPage = this.state.currentPage;
-		if (this.authorizedOnlyRoutes.indexOf(currentPage) > -1) {
-			if (window.isUserAuthed) {
-				return true;	
-			}
-			else {
-				return false;
-			}
-		}
-		return true;
+	_onDatasetChange : function(result) {
+		this._getPollingList(function(data){
+			return;
+		}, true);
 	},
 	render : function(){
 		//before anything else, check if user has access to soon-to-be rendered page
@@ -178,7 +151,7 @@ var App = React.createClass({
 		}
 
 		var self = this;
-		var dataset = this.state.dataset;
+		var dataset = JSON.parse(localStorage.getItem("dataset"));
 		if (this.state.currentPage == "home") {
 			return (
 				<div>
@@ -195,7 +168,7 @@ var App = React.createClass({
 			var selectedItem = this.state.selectedItem; //which poll user chose
 			var bound = self._onHomeButtonClick.bind(this);
 			return (
-				<PollDetail index={selectedItem} homebutton={bound} dataset={dataset[selectedItem]} />
+				<PollDetail onDatasetChange={this._onDatasetChange.bind(this)} index={selectedItem} homebutton={bound} dataset={dataset[selectedItem]} />
 			);
 		}
 		else if (this.state.currentPage == "createpoll") {

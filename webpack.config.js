@@ -29,9 +29,10 @@ module.exports = {
     // (e.g. require('underscore')).
     extensions: ['', '.js', '.jsx']
   },
-  plugins: [
-    new webpack.optimize.UglifyJsPlugin({
-      compress: { warnings: false }
-    })
-  ]
+  //TODO : uncomment on production
+  // plugins: [
+  //   new webpack.optimize.UglifyJsPlugin({
+  //     compress: { warnings: false }
+  //   })
+  // ]
 };

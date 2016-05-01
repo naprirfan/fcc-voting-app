@@ -1,5 +1,5 @@
 var React = require('react');
-var Helper = require('./_mixins');
+var Helper = require("./_mixins_helper");
 
 var PollItem = React.createClass({
 	mixins : [Helper],
