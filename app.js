@@ -10,7 +10,6 @@ const ACCESS_TOKEN_REQUEST_URL = "https://github.com/login/oauth/access_token";
 require('dotenv').config();
 var express = require("express");
 var app = express();
-var sass = require("node-sass");
 var request = require("request");
 var bodyParser = require("body-parser");
 var cookieParser = require('cookie-parser');
