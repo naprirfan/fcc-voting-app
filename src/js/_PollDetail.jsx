@@ -39,27 +39,46 @@ var PollDetail = React.createClass({
 	},
 	_onFormSubmit : function(vote){
 		var self = this;
-		var dataset = this.props.dataset;
-		dataset.result[vote] += 1;
-
-		$.ajax({
-			url : "/vote",
-			data : {
-				vote : vote,
-				_id : dataset._id
-			},
-			method :"PUT",
-			success : function(data) {
-				//todo : change dataset record in parent
-				var result = {
-					index : self.props.index,
-					data : data
+		if (vote.new_option !== undefined) {
+			var dataset = this.props.dataset;
+			dataset.result[vote.new_option] = 1;
+			$.ajax({
+				url: "/vote/new_option",
+				data : {
+					new_option: vote.new_option,
+					_id : dataset._id
+				},
+				method: "PUT",
+				success : function(data) {
+					self.props.onDatasetChange();
 				}
-				self.props.onDatasetChange(result);
-			}
-		});
+			});
+			this.setState({dataset : dataset, canvote : false});
+		}
+		else {
+			var dataset = this.props.dataset;
+			dataset.result[vote] += 1;
+			$.ajax({
+				url : "/vote",
+				data : {
+					vote : vote,
+					_id : dataset._id
+				},
+				method :"PUT",
+				success : function(data) {
+					//todo : change dataset record in parent
+					var result = {
+						index : self.props.index,
+						data : data
+					}
+					self.props.onDatasetChange(result);
+				}
+			});
 
-		this.setState({dataset : dataset, canvote : false});
+			this.setState({dataset : dataset, canvote : false});
+		}
+		
+		
 	},
 	getInitialState : function(){
 		return {

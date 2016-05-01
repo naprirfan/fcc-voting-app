@@ -30,9 +30,9 @@ module.exports = {
     extensions: ['', '.js', '.jsx']
   },
   //TODO : uncomment on production
-  // plugins: [
-  //   new webpack.optimize.UglifyJsPlugin({
-  //     compress: { warnings: false }
-  //   })
-  // ]
+  plugins: [
+    new webpack.optimize.UglifyJsPlugin({
+      compress: { warnings: false }
+    })
+  ]
 };

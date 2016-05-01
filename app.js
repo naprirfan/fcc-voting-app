@@ -1,9 +1,7 @@
 /*
 TODO :
-
+0. Implement add vote option
 1. Make all UI's path more seamless
-2. create localstorage for dataset
-3. refactor : move route in mixin, refactor names across all jsx
 4. Delete pubsub, implement things react-y ways
 */
 
@@ -111,8 +109,47 @@ app.put("/vote", function(req,res) {
 	});
 });
 
-app.put("/vote/add_option", function(req,res){
+app.put("/vote/new_option", function(req,res){
+	if (req.cookies.token === undefined) {
+		res.end(403, "not authorized");
+		return;
+	}
 
+	var pushUpdate;
+	//if user is authed
+	if (req.cookies.token !== undefined) {
+		pushUpdate = {
+			username_voters : req.cookies.token
+		};
+	}
+	//if user is NOT authed
+	else {
+		pushUpdate = {
+			ip_voters : req.ip
+		}
+	}
+
+	mongodbclient.connect(db_url, function(err,db){
+		if (err) throw err;
+		
+		var votekey = "result." + req.body.new_option;
+		var new_option = {};
+		new_option[votekey] = 1;
+
+		var collection = db.collection("voting_app");
+		collection.findAndModify(
+		    { _id: new mongodb.ObjectID(req.body._id) },     // query
+		    [],               // represents a sort order if multiple matches
+		    { 
+		    	$push: pushUpdate,
+		    	$set : new_option
+		    },   // update statement
+		    { new: true },    // options - new to return the modified document
+		    function(err,doc) {
+		    	res.end(JSON.stringify(doc));
+		    }
+		);
+	});
 });
 
 app.delete("/deletepoll", function(req,res){
